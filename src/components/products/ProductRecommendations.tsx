@@ -1,15 +1,16 @@
-```tsx
-import { useEffect, useState } from 'react';
-import { Product } from '@/types/product';
-import { ProductCard } from './ProductCard';
-import { getRelatedProducts } from '@/lib/recommendations';
-import { PRODUCTS } from '@/data/products';
+import { useEffect, useState } from "react";
+import { Product } from "@/types/product";
+import { ProductCard } from "./ProductCard";
+import { getRelatedProducts } from "@/lib/recommendations";
+import { PRODUCTS } from "@/data/products";
 
 interface ProductRecommendationsProps {
   currentProduct: Product;
 }
 
-export function ProductRecommendations({ currentProduct }: ProductRecommendationsProps) {
+export function ProductRecommendations({
+  currentProduct,
+}: ProductRecommendationsProps) {
   const [recommendations, setRecommendations] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -30,4 +31,3 @@ export function ProductRecommendations({ currentProduct }: ProductRecommendation
     </section>
   );
 }
-```

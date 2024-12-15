@@ -1,30 +1,30 @@
-import { Routes, Route } from 'react-router-dom';
-import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
+import { Routes, Route } from "react-router-dom";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 
 // Public Pages
-import { HomePage } from '@/pages/HomePage';
-import { NewArrivalsPage } from '@/pages/NewArrivalsPage';
-import { ProductsPage } from '@/pages/ProductsPage';
-import { ProductDetailPage } from '@/pages/ProductDetailPage';
-import { SearchPage } from '@/pages/SearchPage';
-import { LoginPage } from '@/pages/LoginPage';
-import { RegisterPage } from '@/pages/RegisterPage';
-import { BrandsPage } from '@/pages/BrandsPage';
-import { BrandDetailPage } from '@/pages/BrandDetailPage';
-import { WomenPage } from '@/pages/collections/WomenPage';
-import { MenPage } from '@/pages/collections/MenPage';
+import { HomePage } from "@/pages/HomePage";
+import { NewArrivalsPage } from "@/pages/NewArrivalsPage";
+import { ProductsPage } from "@/pages/ProductsPage";
+import { ProductDetailPage } from "@/pages/ProductDetailPage";
+import { SearchPage } from "@/pages/SearchPage";
+import { LoginPage } from "@/pages/LoginPage";
+import { RegisterPage } from "@/pages/RegisterPage";
+import { BrandsPage } from "@/pages/BrandsPage";
+import { BrandDetailPage } from "@/pages/BrandDetailPage";
+import { WomenPage } from "@/pages/collections/WomenPage";
+import { MenPage } from "@/pages/collections/MenPage";
 
 // Protected Pages
-import { CheckoutPage } from '@/pages/CheckoutPage';
-import { AccountPage } from '@/pages/AccountPage';
-import { OrdersPage } from '@/pages/OrdersPage';
-import { OrderDetailPage } from '@/pages/OrderDetailPage';
-import { WishlistPage } from '@/pages/WishlistPage';
+import { CheckoutPage } from "@/pages/CheckoutPage";
+import { AccountPage } from "@/pages/AccountPage";
+import { OrdersPage } from "@/pages/OrdersPage";
+import { OrderDetailPage } from "@/pages/OrderDetailPage";
+import { WishlistPage } from "@/pages/WishlistPage";
 
 // Admin Pages
-import { AdminLayout } from '@/pages/admin/AdminLayout';
-import { DashboardPage } from '@/pages/admin/DashboardPage';
-import { AdminProductsPage } from '@/pages/admin/ProductsPage';
+import { AdminLayout } from "@/pages/admin/AdminLayout";
+import { DashboardPage } from "@/pages/admin/DashboardPage";
+import { AdminProductsPage } from "@/pages/admin/AdminProductsPage";
 
 export function AppRoutes() {
   return (

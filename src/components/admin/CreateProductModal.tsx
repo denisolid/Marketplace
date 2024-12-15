@@ -1,21 +1,20 @@
-```tsx
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Modal } from '@/components/ui/Modal';
-import { Button } from '@/components/ui/Button';
-import { BRANDS } from '@/data/brands';
-import { CATEGORIES } from '@/data/categories';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Modal } from "@/components/ui/Modal";
+import { Button } from "@/components/ui/Button";
+import { BRANDS } from "@/data/brands";
+import { CATEGORIES } from "@/data/categories";
 
 const productSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  brand: z.string().min(1, 'Brand is required'),
-  price: z.number().min(0, 'Price must be positive'),
-  category: z.string().min(1, 'Category is required'),
-  subcategory: z.string().min(1, 'Subcategory is required'),
-  description: z.string().min(1, 'Description is required'),
-  sizes: z.array(z.string()).min(1, 'At least one size is required'),
-  images: z.array(z.string()).min(1, 'At least one image is required'),
+  name: z.string().min(1, "Name is required"),
+  brand: z.string().min(1, "Brand is required"),
+  price: z.number().min(0, "Price must be positive"),
+  category: z.string().min(1, "Category is required"),
+  subcategory: z.string().min(1, "Subcategory is required"),
+  description: z.string().min(1, "Description is required"),
+  sizes: z.array(z.string()).min(1, "At least one size is required"),
+  images: z.array(z.string()).min(1, "At least one image is required"),
 });
 
 type ProductFormData = z.infer<typeof productSchema>;
@@ -25,7 +24,10 @@ interface CreateProductModalProps {
   onClose: () => void;
 }
 
-export function CreateProductModal({ isOpen, onClose }: CreateProductModalProps) {
+export function CreateProductModal({
+  isOpen,
+  onClose,
+}: CreateProductModalProps) {
   const {
     register,
     handleSubmit,
@@ -44,9 +46,11 @@ export function CreateProductModal({ isOpen, onClose }: CreateProductModalProps)
     <Modal isOpen={isOpen} onClose={onClose} title="Create New Product">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Name</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Name
+          </label>
           <input
-            {...register('name')}
+            {...register("name")}
             className="mt-1 block w-full rounded-md border-gray-300"
           />
           {errors.name && (
@@ -55,9 +59,11 @@ export function CreateProductModal({ isOpen, onClose }: CreateProductModalProps)
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Brand</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Brand
+          </label>
           <select
-            {...register('brand')}
+            {...register("brand")}
             className="mt-1 block w-full rounded-md border-gray-300"
           >
             <option value="">Select Brand</option>
@@ -78,7 +84,7 @@ export function CreateProductModal({ isOpen, onClose }: CreateProductModalProps)
               Category
             </label>
             <select
-              {...register('category')}
+              {...register("category")}
               className="mt-1 block w-full rounded-md border-gray-300"
             >
               <option value="">Select Category</option>
@@ -89,19 +95,25 @@ export function CreateProductModal({ isOpen, onClose }: CreateProductModalProps)
               ))}
             </select>
             {errors.category && (
-              <p className="mt-1 text-sm text-red-600">{errors.category.message}</p>
+              <p className="mt-1 text-sm text-red-600">
+                {errors.category.message}
+              </p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Price</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Price
+            </label>
             <input
               type="number"
-              {...register('price', { valueAsNumber: true })}
+              {...register("price", { valueAsNumber: true })}
               className="mt-1 block w-full rounded-md border-gray-300"
             />
             {errors.price && (
-              <p className="mt-1 text-sm text-red-600">{errors.price.message}</p>
+              <p className="mt-1 text-sm text-red-600">
+                {errors.price.message}
+              </p>
             )}
           </div>
         </div>
@@ -116,4 +128,3 @@ export function CreateProductModal({ isOpen, onClose }: CreateProductModalProps)
     </Modal>
   );
 }
-```

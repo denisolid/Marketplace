@@ -1,12 +1,11 @@
-```tsx
-import { useState } from 'react';
-import { Plus } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { ProductsTable } from '@/components/admin/ProductsTable';
-import { CreateProductModal } from '@/components/admin/CreateProductModal';
-import { PRODUCTS } from '@/data/products';
+import { useState } from "react";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { ProductsTable } from "@/components/admin/ProductsTable";
+import { CreateProductModal } from "@/components/admin/CreateProductModal";
+import { PRODUCTS } from "@/data/products";
 
-export function ProductsPage() {
+export function AdminProductsPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   return (
@@ -21,11 +20,10 @@ export function ProductsPage() {
 
       <ProductsTable products={PRODUCTS} />
 
-      <CreateProductModal 
+      <CreateProductModal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
       />
     </div>
   );
 }
-```

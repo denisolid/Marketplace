@@ -1,9 +1,8 @@
-```tsx
-import { useState } from 'react';
-import { Edit, Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { formatPrice } from '@/lib/utils/format';
-import type { Product } from '@/types/product';
+import { useState } from "react";
+import { Edit, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { formatPrice } from "@/lib/utils/format";
+import type { Product } from "@/types/product";
 
 interface ProductsTableProps {
   products: Product[];
@@ -13,9 +12,9 @@ export function ProductsTable({ products }: ProductsTableProps) {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
 
   const toggleSelect = (productId: string) => {
-    setSelectedProducts(prev =>
+    setSelectedProducts((prev) =>
       prev.includes(productId)
-        ? prev.filter(id => id !== productId)
+        ? prev.filter((id) => id !== productId)
         : [...prev, productId]
     );
   };
@@ -31,7 +30,7 @@ export function ProductsTable({ products }: ProductsTableProps) {
                   type="checkbox"
                   onChange={(e) => {
                     if (e.target.checked) {
-                      setSelectedProducts(products.map(p => p.id));
+                      setSelectedProducts(products.map((p) => p.id));
                     } else {
                       setSelectedProducts([]);
                     }
@@ -86,4 +85,3 @@ export function ProductsTable({ products }: ProductsTableProps) {
     </div>
   );
 }
-```
