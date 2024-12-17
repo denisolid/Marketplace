@@ -1,12 +1,14 @@
-import { useState } from 'react';
-import { ShoppingBag, Search, Menu, User } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from './ui/Button';
-import { MainNav } from './navigation/MainNav';
-import { CartDrawer } from './cart/CartDrawer';
-import { SearchBar } from './search/SearchBar';
-import { useCart } from '@/context/CartContext';
-import { useAuthStore } from '@/stores/authStore';
+import { useState } from "react";
+import { ShoppingBag, Search, Menu, User } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/Button";
+import { MainNav } from "./navigation/MainNav";
+import { CartDrawer } from "./cart/CartDrawer";
+import { SearchBar } from "./search/SearchBar";
+import { useCart } from "@/context/CartContext";
+import { useAuthStore } from "@/stores/authStore";
+import "../styles/components/Header.css";
+import "../styles/components/Button.css";
 
 export function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -27,14 +29,18 @@ export function Header() {
             UKRAINIAN FASHION
           </Link>
         </div>
-        
+
         <MainNav />
 
         <div className="flex items-center space-x-4">
-          <Button variant="outline" size="sm" onClick={() => setIsSearchOpen(!isSearchOpen)}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+          >
             <Search className="h-5 w-5" />
           </Button>
-          
+
           {isAuthenticated ? (
             <Link to="/account">
               <Button variant="outline" size="sm">
@@ -49,7 +55,11 @@ export function Header() {
             </Link>
           )}
 
-          <Button variant="outline" size="sm" onClick={() => setIsCartOpen(true)}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsCartOpen(true)}
+          >
             <ShoppingBag className="h-5 w-5" />
             {itemCount > 0 && (
               <span className="ml-1 text-sm font-medium">{itemCount}</span>

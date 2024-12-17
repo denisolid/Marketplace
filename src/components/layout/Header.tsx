@@ -8,7 +8,6 @@ import { SearchBar } from "../search/SearchBar";
 import { MobileMenuDrawer } from "../navigation/MobileMenuDrawer";
 import { useCart } from "@/context/CartContext";
 import { useAuthStore } from "@/stores/authStore";
-import { LogoutButton } from "../auth/LogoutButton";
 
 export function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -48,14 +47,11 @@ export function Header() {
           </Button>
 
           {isAuthenticated ? (
-            <div className="flex items-center space-x-4">
-              <Link to="/account">
-                <Button variant="outline" size="sm">
-                  <User className="h-5 w-5" />
-                </Button>
-              </Link>
-              <LogoutButton />
-            </div>
+            <Link to="/account">
+              <Button variant="outline" size="sm">
+                <User className="h-5 w-5" />
+              </Button>
+            </Link>
           ) : (
             <Link to="/login">
               <Button variant="outline" size="sm">
