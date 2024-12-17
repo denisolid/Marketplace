@@ -13,6 +13,7 @@ import { BrandsPage } from "@/pages/BrandsPage";
 import { BrandDetailPage } from "@/pages/BrandDetailPage";
 import { WomenPage } from "@/pages/collections/WomenPage";
 import { MenPage } from "@/pages/collections/MenPage";
+import { ContactPage, ShippingPage, ReturnsPage } from "@/pages/info";
 
 // Protected Pages
 import { CheckoutPage } from "@/pages/CheckoutPage";
@@ -41,6 +42,11 @@ export function AppRoutes() {
       <Route path="/brands/:brandId" element={<BrandDetailPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+
+      {/* Info Pages */}
+      <Route path="/contact" element={<ContactPage />} />
+      <Route path="/shipping" element={<ShippingPage />} />
+      <Route path="/returns" element={<ReturnsPage />} />
 
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>

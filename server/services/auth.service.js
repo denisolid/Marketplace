@@ -53,6 +53,31 @@ export class AuthService {
     };
   }
 
+  static async logout(token) {
+    // Add token to blacklist
+    tokenBlacklist.add(token);
+    logger.info("Token added to blacklist");
+
+    // Clean up expired tokens from blacklist
+    this.cleanupBlacklist();
+  }
+
+  static isTokenBlacklisted(token) {
+    return tokenBlacklist.has(token);
+  }
+
+  // Cleanup expired tokens from blacklist
+  static cleanupBlacklist() {
+    for (const token of tokenBlacklist) {
+      try {
+        jwt.verify(token, JWT_CONFIG.secret);
+      } catch (error) {
+        // If token is expired, remove it from blacklist
+        tokenBlacklist.delete(token);
+      }
+    }
+  }
+
   static async googleAuth(code) {
     try {
       // Exchange code for tokens
