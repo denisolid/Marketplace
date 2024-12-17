@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { Layout } from "@/components/layout/Layout";
 
 // Public Pages
 import { HomePage } from "@/pages/HomePage";
@@ -13,7 +14,9 @@ import { BrandsPage } from "@/pages/BrandsPage";
 import { BrandDetailPage } from "@/pages/BrandDetailPage";
 import { WomenPage } from "@/pages/collections/WomenPage";
 import { MenPage } from "@/pages/collections/MenPage";
-import { ContactPage, ShippingPage, ReturnsPage } from "@/pages/info";
+import { ContactPage } from "@/pages/info/ContactPage";
+import { ShippingPage } from "@/pages/info/ShippingPage";
+import { ReturnsPage } from "@/pages/info/ReturnsPage";
 
 // Protected Pages
 import { CheckoutPage } from "@/pages/CheckoutPage";
@@ -44,6 +47,7 @@ export function AppRoutes() {
       <Route path="/register" element={<RegisterPage />} />
 
       {/* Info Pages */}
+
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/shipping" element={<ShippingPage />} />
       <Route path="/returns" element={<ReturnsPage />} />
