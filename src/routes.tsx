@@ -21,6 +21,9 @@ import { AccountPage } from "@/pages/AccountPage";
 import { OrdersPage } from "@/pages/OrdersPage";
 import { OrderDetailPage } from "@/pages/OrderDetailPage";
 import { WishlistPage } from "@/pages/WishlistPage";
+import { ContactPage } from "@/pages/info/ContactPage";
+import { ShippingPage } from "@/pages/info/ShippingPage";
+import { ReturnsPage } from "@/pages/info/ReturnsPage";
 
 export function AppRoutes() {
   return (
@@ -37,8 +40,14 @@ export function AppRoutes() {
       <Route path="/brands/:brandId" element={<BrandDetailPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      {/* Protected routes */}
 
+      {/* Info Pages */}
+
+      <Route path="/contact" element={<ContactPage />} />
+      <Route path="/shipping" element={<ShippingPage />} />
+      <Route path="/returns" element={<ReturnsPage />} />
+
+      {/* Protected routes */}
       <Route element={<ProtectedRoute />}>
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/account" element={<AccountPage />} />
