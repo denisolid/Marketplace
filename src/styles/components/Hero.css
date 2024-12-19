@@ -1,0 +1,52 @@
+.hero-section {
+  position: relative;
+  height: 70vh; /* Высота секции hero */
+  overflow: hidden; /* Скрываем всё, что выходит за пределы */
+}
+
+.hero-image {
+  object-fit: cover;
+  filter: drop-shadow(4 4 -40px rgba(120, 164, 182, 0.5));
+  transition: transform 0.1s ease-out;
+  filter: blur(10px); /* Размытие изображения */
+  border-style: dashed;
+  border-image-outset: 30px 30px 30px 30px;
+  mask-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 1) 100%
+  ); /* Градиентная маска для размытия */
+  -webkit-mask-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 0) 100%
+  ); /* Для WebKit (Safari) */
+}
+
+.hero-image-blur {
+  object-fit: cover;
+
+  mask-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 1) 50%,
+    /* Центр видимый */ rgba(0, 0, 0, 0) 100% /* Края размытые */
+  );
+  -webkit-mask-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 1) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* Под текстом */
+  overflow: hidden; /* Скрываем края размытости */
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* Полупрозрачный черный фон */
+}
