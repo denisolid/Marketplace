@@ -9,7 +9,7 @@
   filter: drop-shadow(4 4 -40px rgba(120, 164, 182, 0.5));
   transition: transform 0.1s ease-out;
   filter: blur(10px); /* Размытие изображения */
-  border-style: dashed;
+
   border-image-outset: 30px 30px 30px 30px;
   mask-image: radial-gradient(
     circle,
