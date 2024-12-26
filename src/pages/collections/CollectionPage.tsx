@@ -4,7 +4,8 @@ import { PRODUCTS } from "@/data/products";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { ProductFilters } from "@/components/products/filters/ProductFilters";
 import { ProductSort } from "@/components/products/ProductSort";
-import { applyFilters, sortProducts } from "@/lib/utils/products";
+import { sortProducts } from "@/lib/utils/products";
+import { applyFilters } from "@/lib/utils/filters";
 import type { ProductFilters as Filters } from "@/lib/utils/filters";
 
 export function CollectionPage() {

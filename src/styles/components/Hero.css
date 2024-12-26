@@ -12,7 +12,7 @@
 
   border-image-outset: 30px 30px 30px 30px;
   mask-image: radial-gradient(
-    cover,
+    farthest-corner,
     rgba(4, 0, 0, 1) 50%,
     rgba(0, 0, 0, 1) 95%
   ); /* Градиентная маска для размытия */
@@ -24,7 +24,7 @@
 }
 
 .hero-image-blur {
-  object-fit: cover;
+  object-fit: farthest-corner;
 
   mask-image: radial-gradient(
     circle,
