@@ -5,11 +5,15 @@ import { GOOGLE_OAUTH_CONFIG, JWT_CONFIG } from "../config/constants.js";
 import { logger } from "../config/logger.js";
 import dotenv from "dotenv";
 dotenv.config();
-const googleClient = new OAuth2Client(
-  GOOGLE_OAUTH_CONFIG.clientId,
-  GOOGLE_OAUTH_CONFIG.clientSecret,
-  GOOGLE_OAUTH_CONFIG.redirectUri
-);
+
+const googleClient = new OAuth2Client({
+  clientId: GOOGLE_OAUTH_CONFIG.clientId,
+  clientSecret: GOOGLE_OAUTH_CONFIG.clientSecret,
+  redirectUri: GOOGLE_OAUTH_CONFIG.redirectUri,
+});
+
+// Token blacklist (in-memory for demo, use Redis in production)
+const tokenBlacklist = new Set();
 
 export class AuthService {
   static generateToken(userId) {
@@ -53,60 +57,34 @@ export class AuthService {
     };
   }
 
-  static async logout(token) {
-    // Add token to blacklist
-    tokenBlacklist.add(token);
-    logger.info("Token added to blacklist");
-
-    // Clean up expired tokens from blacklist
-    this.cleanupBlacklist();
-  }
-
-  static isTokenBlacklisted(token) {
-    return tokenBlacklist.has(token);
-  }
-
-  // Cleanup expired tokens from blacklist
-  static cleanupBlacklist() {
-    for (const token of tokenBlacklist) {
-      try {
-        jwt.verify(token, JWT_CONFIG.secret);
-      } catch (error) {
-        // If token is expired, remove it from blacklist
-        tokenBlacklist.delete(token);
-      }
-    }
-  }
-
   static async googleAuth(code) {
     try {
-      // Exchange code for tokens
-
       const { tokens } = await googleClient.getToken(code);
       const ticket = await googleClient.verifyIdToken({
         idToken: tokens.id_token,
         audience: GOOGLE_OAUTH_CONFIG.clientId,
       });
 
-      console.log("Auth URL:", authUrl);
       const payload = ticket.getPayload();
+
+      if (!payload || !payload.email) {
+        throw new Error("Invalid Google token");
+      }
 
       // Find or create user
       let user = await User.findOne({ email: payload.email });
 
       if (!user) {
+        // Create new user from Google data
         user = await User.create({
           name: payload.name,
           email: payload.email,
           googleId: payload.sub,
           avatar: payload.picture,
+          // Set a random password since we won't use it
+          password: Math.random().toString(36).slice(-8),
         });
         logger.info(`Created new user via Google OAuth: ${user.email}`);
-      } else if (!user.googleId) {
-        user.googleId = payload.sub;
-        user.avatar = payload.picture;
-        await user.save();
-        logger.info(`Linked Google account to existing user: ${user.email}`);
       }
 
       return {
@@ -119,6 +97,26 @@ export class AuthService {
     } catch (error) {
       logger.error("Google OAuth error:", error);
       throw new Error("Failed to authenticate with Google");
+    }
+  }
+
+  static async logout(token) {
+    tokenBlacklist.add(token);
+    logger.info("Token added to blacklist");
+    this.cleanupBlacklist();
+  }
+
+  static isTokenBlacklisted(token) {
+    return tokenBlacklist.has(token);
+  }
+
+  static cleanupBlacklist() {
+    for (const token of tokenBlacklist) {
+      try {
+        jwt.verify(token, JWT_CONFIG.secret);
+      } catch (error) {
+        tokenBlacklist.delete(token);
+      }
     }
   }
 }

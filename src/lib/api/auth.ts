@@ -1,5 +1,6 @@
 import axios from "axios";
 import { apiClient } from "./client";
+import { initiateGoogleLogin, handleGoogleCallback } from "./google-auth";
 import type { LoginCredentials, RegisterCredentials } from "@/types/auth";
 
 const api = axios.create({
@@ -35,6 +36,9 @@ export async function login(credentials: LoginCredentials) {
     };
   }
 }
+
+export { initiateGoogleLogin as loginWithGoogle, handleGoogleCallback };
+
 export async function logout() {
   try {
     const response = await apiClient.post("/auth/logout");

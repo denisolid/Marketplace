@@ -2,7 +2,7 @@ import { X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuthStore } from "@/stores/authStore";
 import { Button } from "../ui/Button";
-import { LogoutButton } from "../auth/LogoutButton";
+import cn from "classnames";
 
 const NAV_ITEMS = [
   {
@@ -89,7 +89,6 @@ export function MobileMenuDrawer({ isOpen, onClose }: MobileMenuDrawerProps) {
               >
                 Wishlist
               </Link>
-              <LogoutButton className="w-full" onClick={onClose} />
             </div>
           ) : (
             <div className="space-y-4">
