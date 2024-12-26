@@ -1,12 +1,15 @@
-import { Link } from 'react-router-dom';
-import { Product } from '@/types/product';
-import { formatPrice } from '@/lib/utils/format';
+import { Link } from "react-router-dom";
+import { Product } from "@/types/product";
+import { formatPrice } from "@/lib/utils/format";
+import { BRANDS } from "@/data/brands";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const brand = BRANDS.find((b) => b.id === product.brand);
+
   return (
     <Link to={`/products/${product.id}`} className="group">
       <div className="aspect-square overflow-hidden rounded-lg bg-gray-100">
@@ -17,7 +20,7 @@ export function ProductCard({ product }: ProductCardProps) {
         />
       </div>
       <div className="mt-4 space-y-1">
-        <p className="text-sm text-gray-500">{product.brand}</p>
+        <p className="text-sm text-gray-500">{brand?.name}</p>
         <h3 className="text-lg font-medium text-gray-900">{product.name}</h3>
         <p className="font-medium">{formatPrice(product.price)}</p>
       </div>

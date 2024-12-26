@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-import { CATEGORIES } from '@/data/categories';
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { CATEGORIES } from "@/data/categories";
 
 export function Categories() {
   return (
@@ -9,7 +9,8 @@ export function Categories() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Shop by Category</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Explore our curated collections of premium Ukrainian fashion for every style and occasion
+            Explore our curated collections of premium Ukrainian fashion for
+            every style and occasion
           </p>
         </div>
 
@@ -17,7 +18,7 @@ export function Categories() {
           {CATEGORIES.map((category) => (
             <Link
               key={category.id}
-              to={`/collections/${category.id}`}
+              to={`/${category.id}`}
               className="group relative overflow-hidden rounded-lg aspect-[16/9]"
             >
               <img
@@ -27,7 +28,9 @@ export function Categories() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                 <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <h3 className="text-2xl font-bold text-white mb-2">{category.name}</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2">
+                    {category.name}
+                  </h3>
                   <p className="text-gray-200 mb-4">{category.description}</p>
                   <div className="flex items-center text-white group-hover:underline">
                     <span>View Collection</span>

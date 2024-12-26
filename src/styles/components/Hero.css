@@ -8,18 +8,18 @@
   object-fit: cover;
   filter: drop-shadow(4 4 -40px rgba(120, 164, 182, 0.5));
   transition: transform 0.1s ease-out;
-  filter: blur(10px); /* Размытие изображения */
+  filter: blur(1px); /* Размытие изображения */
 
   border-image-outset: 30px 30px 30px 30px;
   mask-image: radial-gradient(
-    circle,
-    rgba(0, 0, 0, 1) 50%,
-    rgba(0, 0, 0, 1) 100%
+    cover,
+    rgba(4, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 1) 95%
   ); /* Градиентная маска для размытия */
   -webkit-mask-image: radial-gradient(
     circle,
-    rgba(0, 0, 0, 1) 50%,
-    rgba(0, 0, 0, 0) 100%
+    rgba(4, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 0) 95%
   ); /* Для WebKit (Safari) */
 }
 
@@ -28,7 +28,7 @@
 
   mask-image: radial-gradient(
     circle,
-    rgba(0, 0, 0, 1) 50%,
+    rgba(1, 0, 0, 1) 20%,
     /* Центр видимый */ rgba(0, 0, 0, 0) 100% /* Края размытые */
   );
   -webkit-mask-image: radial-gradient(

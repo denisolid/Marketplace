@@ -1,63 +1,55 @@
 import { useState } from "react";
 import { FilterSection } from "./FilterSection";
-import { FilterOption } from "./FilterOption";
 import { PriceRangeFilter } from "./PriceRangeFilter";
-import { BRANDS } from "@/data/brands";
-import { CATEGORIES } from "@/data/categories";
+import { ColorFilter } from "./ColorFilter";
+import { SizeFilter } from "./SizeFilter";
+import { BrandFilter } from "./BrandFilter";
+import { ClearFiltersButton } from "./ClearFiltersButton";
+import { COLORS, SIZES } from "./constants";
 import { ProductFilters as Filters } from "@/lib/utils/filters";
 
 interface ProductFiltersProps {
   initialFilters?: Filters;
   onFilterChange: (filters: Filters) => void;
-  onClear: (filters: Filters) => void;
 }
 
 export function ProductFilters({
   initialFilters = {},
   onFilterChange,
-  onClear,
 }: ProductFiltersProps) {
   const [expandedSection, setExpandedSection] = useState<string>("category");
   const [filters, setFilters] = useState<Filters>(initialFilters);
 
   const updateFilters = (key: keyof Filters, value: any) => {
-    const newFilters = { ...filters, [key]: value };
-    setFilters(newFilters);
-    onFilterChange(newFilters);
+    const newFilters = { ...filters, [key]: value } as Filters;
+
+    // Create a new object for the cleaned filters
+    const cleanedFilters: Filters = {};
+
+    // Type-safe way to iterate through filters
+    (Object.keys(newFilters) as Array<keyof Filters>).forEach((key) => {
+      const val = newFilters[key];
+      if (Array.isArray(val) && val.length > 0) {
+        cleanedFilters[key] = val;
+      } else if (val !== undefined && !Array.isArray(val)) {
+        cleanedFilters[key] = val;
+      }
+    });
+
+    setFilters(cleanedFilters);
+    onFilterChange(cleanedFilters);
   };
 
-  const handleClearFilters = () => {
+  const clearFilters = () => {
     setFilters({});
-    onClear({});
+    onFilterChange({});
   };
+
+  const hasActiveFilters = Object.keys(filters).length > 0;
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold">Filters</h2>
-        <button
-          onClick={handleClearFilters}
-          className="text-red-500 hover:text-red-700 text-md"
-        >
-          Close
-        </button>
-      </div>
-      <FilterSection
-        title="Categories"
-        isExpanded={expandedSection === "category"}
-        onToggle={() =>
-          setExpandedSection(expandedSection === "category" ? "" : "category")
-        }
-      >
-        {CATEGORIES.map((category) => (
-          <FilterOption
-            key={category.id}
-            label={category.name}
-            isSelected={filters.category === category.id}
-            onClick={() => updateFilters("category", category.id)}
-          />
-        ))}
-      </FilterSection>
+      <ClearFiltersButton onClear={clearFilters} isVisible={hasActiveFilters} />
 
       <FilterSection
         title="Brands"
@@ -66,14 +58,38 @@ export function ProductFilters({
           setExpandedSection(expandedSection === "brands" ? "" : "brands")
         }
       >
-        {BRANDS.map((brand) => (
-          <FilterOption
-            key={brand.id}
-            label={brand.name}
-            isSelected={filters.brand === brand.name}
-            onClick={() => updateFilters("brand", brand.name)}
-          />
-        ))}
+        <BrandFilter
+          selectedBrands={filters.brands || []}
+          onChange={(brands) => updateFilters("brands", brands)}
+        />
+      </FilterSection>
+
+      <FilterSection
+        title="Size"
+        isExpanded={expandedSection === "size"}
+        onToggle={() =>
+          setExpandedSection(expandedSection === "size" ? "" : "size")
+        }
+      >
+        <SizeFilter
+          options={SIZES}
+          selectedSizes={filters.sizes || []}
+          onChange={(sizes) => updateFilters("sizes", sizes)}
+        />
+      </FilterSection>
+
+      <FilterSection
+        title="Color"
+        isExpanded={expandedSection === "color"}
+        onToggle={() =>
+          setExpandedSection(expandedSection === "color" ? "" : "color")
+        }
+      >
+        <ColorFilter
+          options={COLORS}
+          selectedColors={filters.colors || []}
+          onChange={(colors) => updateFilters("colors", colors)}
+        />
       </FilterSection>
 
       <FilterSection
@@ -88,25 +104,6 @@ export function ProductFilters({
           max={1000}
           value={filters.priceRange || [0, 1000]}
           onChange={(range) => updateFilters("priceRange", range)}
-        />
-      </FilterSection>
-
-      <FilterSection
-        title="Product Type"
-        isExpanded={expandedSection === "type"}
-        onToggle={() =>
-          setExpandedSection(expandedSection === "type" ? "" : "type")
-        }
-      >
-        <FilterOption
-          label="New Arrivals"
-          isSelected={filters.new === true}
-          onClick={() => updateFilters("new", !filters.new)}
-        />
-        <FilterOption
-          label="Featured"
-          isSelected={filters.featured === true}
-          onClick={() => updateFilters("featured", !filters.featured)}
         />
       </FilterSection>
     </div>
