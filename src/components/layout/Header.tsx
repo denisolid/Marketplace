@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ShoppingBag, Search, Menu, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ShoppingBag, Search, Menu, User, LogOut } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/Button";
 import { MainNav } from "../navigation/MainNav";
 import { CartDrawer } from "../cart/CartDrawer";
@@ -14,9 +14,19 @@ export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { cart } = useCart();
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, logout } = useAuthStore();
+  const navigate = useNavigate();
 
   const itemCount = cart.items.reduce((acc, item) => acc + item.quantity, 0);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white">
@@ -47,11 +57,22 @@ export function Header() {
           </Button>
 
           {isAuthenticated ? (
-            <Link to="/account">
-              <Button variant="outline" size="sm">
-                <User className="h-5 w-5" />
+            <div className="flex items-center space-x-4">
+              <Link to="/account">
+                <Button variant="outline" size="sm">
+                  <User className="h-5 w-5" />
+                </Button>
+              </Link>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleLogout}
+                className="flex items-center gap-2"
+              >
+                <LogOut className="h-5 w-5" />
+                <span className="hidden sm:inline">Logout</span>
               </Button>
-            </Link>
+            </div>
           ) : (
             <Link to="/login">
               <Button variant="outline" size="sm">

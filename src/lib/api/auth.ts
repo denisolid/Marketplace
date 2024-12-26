@@ -1,6 +1,6 @@
 import axios from "axios";
 import { apiClient } from "./client";
-import { initiateGoogleLogin, handleGoogleCallback } from "./google-auth";
+import { initiateGoogleLogin } from "./google-auth";
 import type { LoginCredentials, RegisterCredentials } from "@/types/auth";
 
 const api = axios.create({
@@ -37,14 +37,34 @@ export async function login(credentials: LoginCredentials) {
   }
 }
 
-export { initiateGoogleLogin as loginWithGoogle, handleGoogleCallback };
+export async function googleAuth(code: string) {
+  try {
+    const response = await apiClient.get("/auth/google/callback", {
+      params: { code },
+    });
+
+    // Ensure we're returning the expected data structure
+    const { user, token } = response.data.data;
+    return { user, token };
+  } catch (error: any) {
+    console.error("Google auth error:", error.response?.data || error.message);
+    throw {
+      message: error.response?.data?.message || "Google authentication failed",
+      status: error.response?.status,
+    };
+  }
+}
+
+export { initiateGoogleLogin as loginWithGoogle };
 
 export async function logout() {
   try {
-    const response = await apiClient.post("/auth/logout");
-    return response.data;
+    await apiClient.post("/auth/logout");
+    localStorage.removeItem("token");
   } catch (error: any) {
     console.error("Logout error:", error.response?.data || error.message);
+    // Still remove token even if the API call fails
+    localStorage.removeItem("token");
     throw {
       message: error.response?.data?.message || "Logout failed",
       status: error.response?.status,
