@@ -96,7 +96,7 @@ export const PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80",
     ],
     description: "Classic oxford shirt made from premium cotton.",
-    sizes: ["xs", "s", "m", "l", "xl"],
+    sizes: ["41", "42", "45", "38"],
     colors: ["beige"],
     category: "men",
     subcategory: "shirts",
