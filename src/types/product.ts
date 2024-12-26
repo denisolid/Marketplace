@@ -6,7 +6,8 @@ export interface Product {
   images: string[];
   description: string;
   sizes: string[];
-  category: 'women' | 'men';
+  colors: string[];
+  category: "women" | "men";
   subcategory: string;
   featured?: boolean;
   new?: boolean;

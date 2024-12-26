@@ -43,7 +43,7 @@ export function Hero() {
   const y = mousePosition.y / window.innerHeight - 0.5;
 
   // Ограничиваем максимальное смещение (в пикселях)
-  const maxTranslate = 30; // Максимальное движение в любую сторону
+  const maxTranslate = 10; // Максимальное движение в любую сторону
   const translateX = Math.min(
     Math.max(x * maxTranslate, -maxTranslate),
     maxTranslate
@@ -54,10 +54,10 @@ export function Hero() {
   );
 
   return (
-    <section className="hero-section relative h-[70vh] overflow-hidden">
+    <section className="hero-section relative h-[95vh] overflow-hidden">
       <div className="hero-background absolute inset-0 -z-10">
         <motion.img
-          src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80"
+          src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Background blur"
           className="hero-image-blur"
         />
@@ -65,7 +65,7 @@ export function Hero() {
 
       <div className="absolute inset-0">
         <motion.img
-          src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80"
+          src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Ukrainian Fashion"
           className="hero-image"
           style={{
@@ -75,9 +75,9 @@ export function Hero() {
             `,
           }}
           transition={{
-            type: "spring",
+            type: "keyframes",
             stiffness: 100,
-            damping: 20,
+            damping: 50,
           }}
         />
         <div className="absolute inset-0 bg-black/40" />
