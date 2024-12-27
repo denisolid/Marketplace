@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { ShoppingBag, X } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
-import { Button } from '@/components/ui/Button';
-import { Link } from 'react-router-dom';
+import { ShoppingBag, X } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { Button } from "@/components/ui/Button";
+import { Link } from "react-router-dom";
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -16,15 +15,21 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
   return (
     <>
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={onClose} />
+      <div
+        className="fixed inset-0 bg-black bg-opacity-50 z-40"
+        onClick={onClose}
+      />
       <div className="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-xl p-6 overflow-y-auto z-50">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">Shopping Cart</h2>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded-full"
+          >
             <X className="h-6 w-6" />
           </button>
         </div>
-        
+
         {cart.items.length === 0 ? (
           <div className="text-center py-8">
             <ShoppingBag className="mx-auto h-12 w-12 text-gray-400" />
@@ -43,13 +48,20 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                     />
                     <div className="ml-4 flex-1">
                       <h3 className="font-medium">{item.product.name}</h3>
-                      <p className="mt-1 text-sm text-gray-500">Size: {item.size}</p>
+                      <p className="mt-1 text-sm text-gray-500">
+                        Size: {item.size}
+                      </p>
                       <p className="mt-1">${item.product.price}</p>
                     </div>
                     <div className="ml-4">
                       <select
                         value={item.quantity}
-                        onChange={(e) => updateQuantity(item.product.id, Number(e.target.value))}
+                        onChange={(e) =>
+                          updateQuantity(
+                            item.product.id,
+                            Number(e.target.value)
+                          )
+                        }
                         className="rounded border-gray-200 p-1"
                       >
                         {[1, 2, 3, 4, 5].map((num) => (

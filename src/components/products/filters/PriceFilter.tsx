@@ -1,17 +1,17 @@
-import { Slider } from '@/components/ui/Slider';
+import { Slider } from "@/components/ui/Slider";
 
 interface PriceFilterProps {
   value: [number, number];
-  onChange: (value: [number, number]) => void;
+  onChange: (value: number[]) => void;
   min?: number;
   max?: number;
 }
 
-export function PriceFilter({ 
-  value, 
+export function PriceFilter({
+  value,
   onChange,
   min = 0,
-  max = 1000 
+  max = 1000,
 }: PriceFilterProps) {
   return (
     <div className="space-y-4">
@@ -19,13 +19,7 @@ export function PriceFilter({
         <span>${value[0]}</span>
         <span>${value[1]}</span>
       </div>
-      <Slider
-        min={min}
-        max={max}
-        step={10}
-        value={value}
-        onChange={onChange}
-      />
+      <Slider min={min} max={max} step={10} value={value} onChange={onChange} />
     </div>
   );
 }

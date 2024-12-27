@@ -14,4 +14,7 @@ router.post("/register", validateRegister, register);
 router.post("/login", validateLogin, login);
 router.get("/google/callback", googleAuth);
 router.post("/logout", protect, logout);
+router.get("/test", (req, res) => {
+  res.json({ message: "Auth routes are working" });
+});
 export default router;

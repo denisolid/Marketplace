@@ -1,8 +1,8 @@
-import { useCallback, useState } from 'react';
-import { useAsync } from './useAsync';
-import { apiClient } from '@/lib/api/client';
-import { API_ENDPOINTS } from '@/lib/api/endpoints';
-import type { Product } from '@/types/product';
+import { useCallback, useState } from "react";
+import { useAsync } from "./useAsync";
+import { apiClient } from "@/lib/api/client";
+import { API_ENDPOINTS } from "@/lib/api/endpoints";
+import type { Product } from "@/types/product";
 
 interface UseProductsOptions {
   initialFilters?: Record<string, any>;
@@ -19,14 +19,15 @@ export function useProducts(options: UseProductsOptions = {}) {
       if (value) params.append(key, String(value));
     });
 
-    const { data } = await execute(
+    const response = await execute(
       apiClient.get(API_ENDPOINTS.products.list, { params })
     );
+    const { data } = response as { data: { data: Product[] } };
     setProducts(data.data);
   }, [execute, filters]);
 
   const updateFilters = useCallback((newFilters: Record<string, any>) => {
-    setFilters(prev => ({ ...prev, ...newFilters }));
+    setFilters((prev) => ({ ...prev, ...newFilters }));
   }, []);
 
   return {
@@ -34,6 +35,6 @@ export function useProducts(options: UseProductsOptions = {}) {
     isLoading,
     filters,
     updateFilters,
-    fetchProducts
+    fetchProducts,
   };
 }

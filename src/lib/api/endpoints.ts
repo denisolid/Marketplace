@@ -1,23 +1,24 @@
 export const API_ENDPOINTS = {
   auth: {
-    login: '/auth/login',
-    register: '/auth/register',
-    logout: '/auth/logout',
+    login: "/api/auth/login",
+    register: "/api/auth/register",
+    logout: "/api/auth/logout",
+    google: "/api/auth/google",
   },
   products: {
-    list: '/products',
-    detail: (id: string) => `/products/${id}`,
+    list: "/api/products",
+    detail: (id: string) => `/api/products/${id}`,
   },
   cart: {
-    get: '/cart',
-    add: '/cart/items',
-    update: (productId: string) => `/cart/items/${productId}`,
-    clear: '/cart/items',
+    get: "/api/cart",
+    add: "/api/cart/items",
+    update: (productId: string) => `/api/cart/items/${productId}`,
+    clear: "/api/cart/items",
   },
   orders: {
-    list: '/orders',
-    create: '/orders',
-    detail: (id: string) => `/orders/${id}`,
-    updateStatus: (id: string) => `/orders/${id}/status`,
+    list: "/api/orders",
+    create: "/api/orders",
+    detail: (id: string) => `/api/orders/${id}`,
+    updateStatus: (id: string) => `/api/orders/${id}/status`,
   },
 } as const;

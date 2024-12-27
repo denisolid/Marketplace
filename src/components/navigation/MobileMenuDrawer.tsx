@@ -31,7 +31,7 @@ interface MobileMenuDrawerProps {
 
 export function MobileMenuDrawer({ isOpen, onClose }: MobileMenuDrawerProps) {
   const location = useLocation();
-  const { isAuthenticated, logout } = useAuthStore();
+  const { isAuthenticated } = useAuthStore();
 
   if (!isOpen) return null;
 

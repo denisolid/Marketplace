@@ -6,11 +6,22 @@ import { SizeFilter } from "./SizeFilter";
 import { BrandFilter } from "./BrandFilter";
 import { ClearFiltersButton } from "./ClearFiltersButton";
 import { COLORS, SIZES } from "./constants";
-import { ProductFilters as Filters } from "@/lib/utils/filters";
+
+export interface Filters {
+  category?: string;
+  subcategory?: string;
+  brands?: string[];
+  sizes?: string[];
+  colors?: string[];
+  priceRange?: [number, number];
+
+  [key: string]: string[] | [number, number] | string | boolean | undefined;
+}
 
 interface ProductFiltersProps {
   initialFilters?: Filters;
   onFilterChange: (filters: Filters) => void;
+  onClear: () => void;
 }
 
 export function ProductFilters({
