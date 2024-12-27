@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { Star } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { useAuthStore } from '@/stores/authStore';
-import type { ProductReview } from '@/types/review';
+import { useState } from "react";
+import { Star } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { useAuthStore } from "@/stores/authStore";
+import type { ProductReview } from "@/types/review";
 
 interface ProductReviewsProps {
   productId: string;
   reviews: ProductReview;
 }
 
-export function ProductReviews({ productId, reviews }: ProductReviewsProps) {
+export function ProductReviews({ reviews }: ProductReviewsProps) {
   const [showReviewForm, setShowReviewForm] = useState(false);
   const { isAuthenticated } = useAuthStore();
 
@@ -18,7 +18,7 @@ export function ProductReviews({ productId, reviews }: ProductReviewsProps) {
       <Star
         key={index}
         className={`h-4 w-4 ${
-          index < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
+          index < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
         }`}
       />
     ));

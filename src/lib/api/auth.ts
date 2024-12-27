@@ -13,7 +13,7 @@ const api = axios.create({
 
 export async function register(credentials: RegisterCredentials) {
   try {
-    const response = await api.post("/auth/register", credentials);
+    const response = await api.post("api/auth/register", credentials);
     return response.data;
   } catch (error: any) {
     console.error("Registration error:", error.response?.data || error.message);
@@ -26,7 +26,7 @@ export async function register(credentials: RegisterCredentials) {
 
 export async function login(credentials: LoginCredentials) {
   try {
-    const response = await api.post("/auth/login", credentials);
+    const response = await api.post("api/auth/login", credentials);
     return response.data;
   } catch (error: any) {
     console.error("Login error:", error.response?.data || error.message);
@@ -39,7 +39,7 @@ export async function login(credentials: LoginCredentials) {
 
 export async function googleAuth(code: string) {
   try {
-    const response = await apiClient.get("/auth/google/callback", {
+    const response = await apiClient.get("api/auth/google/callback", {
       params: { code },
     });
 
@@ -59,7 +59,7 @@ export { initiateGoogleLogin as loginWithGoogle };
 
 export async function logout() {
   try {
-    await apiClient.post("/auth/logout");
+    await apiClient.post("api/auth/logout");
     localStorage.removeItem("token");
   } catch (error: any) {
     console.error("Logout error:", error.response?.data || error.message);

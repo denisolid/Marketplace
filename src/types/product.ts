@@ -7,6 +7,7 @@ export interface Product {
   description: string;
   sizes: string[];
   colors: string[];
+  tags: string[];
   category: "women" | "men";
   subcategory: string;
   featured?: boolean;

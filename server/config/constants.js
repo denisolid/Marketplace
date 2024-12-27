@@ -16,10 +16,12 @@ export const CORS_OPTIONS = {
   origin:
     process.env.NODE_ENV === "production"
       ? process.env.FRONTEND_URL
-      : "http://localhost:5173",
+      : ["http://localhost:5173", "http://localhost:3000"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  exposedHeaders: ["Content-Range", "X-Content-Range"],
+  maxAge: 600, // 10 minutes
 };
 
 export const GOOGLE_OAUTH_CONFIG = {
@@ -29,6 +31,6 @@ export const GOOGLE_OAUTH_CONFIG = {
 };
 
 export const JWT_CONFIG = {
-  secret: process.env.JWT_SECRET || "your-secret-key",
+  secret: process.env.JWT_SECRET || "QQWRF_#@E$*#@(#&&&E#^%53536fGW",
   expiresIn: "30d",
 };

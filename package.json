@@ -7,8 +7,10 @@
     "dev": "node scripts/start-dev.js",
     "dev:frontend": "vite",
     "dev:backend": "node server/index.js",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "tsc && vite build",
+    "build:backend": "tsc --project tsconfig.server.json",
+    "start": "node dist/server/index.js",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -27,11 +29,13 @@
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.344.0",
     "mongoose": "^8.2.1",
+    "path": "^0.12.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.51.0",
     "react-router-dom": "^6.22.3",
     "tailwind-merge": "^2.2.1",
+    "url": "^0.11.4",
     "zod": "^3.22.4",
     "zustand": "^4.5.2"
   },

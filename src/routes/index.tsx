@@ -6,11 +6,11 @@ import { RegisterPage } from "@/pages/RegisterPage";
 import { GoogleCallback } from "@/components/auth/GoogleCallback";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { AccountPage } from "@/pages/AccountPage";
-
+import { Route } from "react-router-dom";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <Layout>{null}</Layout>,
     children: [
       { index: true, element: <HomePage /> },
       { path: "login", element: <LoginPage /> },
@@ -22,9 +22,9 @@ export const router = createBrowserRouter([
       {
         path: "account",
         element: (
-          <ProtectedRoute>
+          <Route element={<ProtectedRoute />}>
             <AccountPage />
-          </ProtectedRoute>
+          </Route>
         ),
       },
     ],

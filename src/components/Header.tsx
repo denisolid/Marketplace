@@ -14,7 +14,7 @@ export function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { cart } = useCart();
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated } = useAuthStore();
 
   const itemCount = cart.items.reduce((acc, item) => acc + item.quantity, 0);
 
