@@ -36,13 +36,12 @@ export function CollectionPage() {
     return sortProducts(filteredProducts, sortBy);
   };
 
-  // Функция для сброса фильтров
   const handleClearFilters = () => {
     setFilters({});
     setSubcategory(null);
   };
 
-  const filteredProducts = getFilteredProducts(); // Получаем отфильтрованные продукты
+  const filteredProducts = getFilteredProducts();
 
   return (
     <div>
@@ -75,7 +74,7 @@ export function CollectionPage() {
             <ProductFilters
               initialFilters={filters}
               onFilterChange={setFilters}
-              onClear={handleClearFilters} // Передаем функцию сброса
+              onClear={handleClearFilters}
             />
           </div>
           <div className="col-span-3">
