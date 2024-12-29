@@ -1,6 +1,5 @@
 import axios from "axios";
 import { apiClient } from "./client";
-import { initiateGoogleLogin } from "./google-auth";
 import type { LoginCredentials, RegisterCredentials } from "@/types/auth";
 
 const api = axios.create({
@@ -36,26 +35,6 @@ export async function login(credentials: LoginCredentials) {
     };
   }
 }
-
-export async function googleAuth(code: string) {
-  try {
-    const response = await apiClient.get("api/auth/google/callback", {
-      params: { code },
-    });
-
-    // Ensure we're returning the expected data structure
-    const { user, token } = response.data.data;
-    return { user, token };
-  } catch (error: any) {
-    console.error("Google auth error:", error.response?.data || error.message);
-    throw {
-      message: error.response?.data?.message || "Google authentication failed",
-      status: error.response?.status,
-    };
-  }
-}
-
-export { initiateGoogleLogin as loginWithGoogle };
 
 export async function logout() {
   try {

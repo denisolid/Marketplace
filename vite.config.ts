@@ -8,8 +8,7 @@ export default defineConfig({
     outDir: "dist",
   },
   server: {
-    port: parseInt(process.env.PORT || "3000"), // Подставляем порт из Render
-    host: "0.0.0.0", // Слушаем внешние подключения
+    port: 5173,
   },
   plugins: [react()],
   optimizeDeps: {

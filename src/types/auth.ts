@@ -18,3 +18,7 @@ export interface LoginCredentials {
 export interface RegisterCredentials extends LoginCredentials {
   name: string;
 }
+export interface GoogleAuthConfig {
+  clientId: string;
+  redirectUri: string;
+}

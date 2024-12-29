@@ -3,7 +3,7 @@ export const API_ENDPOINTS = {
     login: "/api/auth/login",
     register: "/api/auth/register",
     logout: "/api/auth/logout",
-    google: "/api/auth/google",
+    google: "/api/auth/google/callback",
   },
   products: {
     list: "/api/products",

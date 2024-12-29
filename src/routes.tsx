@@ -13,7 +13,7 @@ import { BrandsPage } from "@/pages/BrandsPage";
 import { BrandDetailPage } from "@/pages/BrandDetailPage";
 import { WomenPage } from "@/pages/collections/WomenPage";
 import { MenPage } from "@/pages/collections/MenPage";
-
+import { GoogleCallbackPage } from "@/pages/GoogleCallbackPage";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 
 import { CheckoutPage } from "@/pages/CheckoutPage";
@@ -40,6 +40,7 @@ export function AppRoutes() {
       <Route path="/brands/:brandId" element={<BrandDetailPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/auth/google/callback" element={<GoogleCallbackPage />} />
 
       {/* Info Pages */}
 
