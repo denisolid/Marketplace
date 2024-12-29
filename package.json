@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/start-dev.js",
-    "dev:frontend": "vite",
-    "dev:backend": "node server/index.js",
+    "dev:frontend": "cd src && npm install && vite build",
+    "dev:backend": "cd server && npm install && tsc --project tsconfig.server.json",
     "build": "npm run build:frontend && npm run build:backend",
     "build:frontend": "tsc && vite build",
     "build:backend": "tsc --project tsconfig.server.json",
