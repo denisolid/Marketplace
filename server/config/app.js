@@ -5,6 +5,7 @@ import path from "path";
 import { CORS_OPTIONS } from "./constants.js";
 import apiRoutes from "../routes/api.js";
 import { errorHandler } from "../middleware/errorHandler.js";
+import { configureCookieMiddleware } from "../middleware/validators/cookie.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,6 +16,8 @@ export function createApp() {
   // Middleware
   app.use(cors(CORS_OPTIONS));
   app.use(express.json());
+  // Configure cookie handling
+  configureCookieMiddleware(app);
 
   // Serve static frontend files in production
   if (process.env.NODE_ENV === "production") {

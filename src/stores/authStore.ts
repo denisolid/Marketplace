@@ -1,22 +1,19 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import {
-  login,
-  register,
-  googleAuth,
-  logout as logoutApi,
-} from "@/lib/api/auth";
+import { login, register, logout as logoutApi } from "@/lib/api/auth";
+import { handleGoogleCallback } from "@/lib/api/google-auth";
 import type {
   AuthState,
   LoginCredentials,
   RegisterCredentials,
 } from "@/types/auth";
+import { apiClient } from "@/lib/api/client";
 
 interface AuthStore extends AuthState {
   login: (credentials: LoginCredentials) => Promise<void>;
   register: (credentials: RegisterCredentials) => Promise<void>;
-  handleGoogleCallback: (code: string) => Promise<void>;
   logout: () => Promise<void>;
+  handleGoogleAuth: (code: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthStore>()(
@@ -29,10 +26,9 @@ export const useAuthStore = create<AuthStore>()(
       login: async (credentials) => {
         set({ isLoading: true });
         try {
-          const { user, token } = await login(credentials);
-          localStorage.setItem("token", token);
+          const { data } = await login(credentials);
           set({
-            user,
+            user: data.user,
             isAuthenticated: true,
             isLoading: false,
           });
@@ -45,29 +41,21 @@ export const useAuthStore = create<AuthStore>()(
       register: async (credentials) => {
         set({ isLoading: true });
         try {
-          const { user, token } = await register(credentials);
-          localStorage.setItem("token", token);
-          set({
-            user,
-            isAuthenticated: true,
-            isLoading: false,
-          });
+          const response = await register(credentials);
+          set({ isLoading: false });
+          return response;
         } catch (error) {
           set({ isLoading: false });
           throw error;
         }
       },
 
-      handleGoogleCallback: async (code) => {
+      handleGoogleAuth: async (code) => {
         set({ isLoading: true });
         try {
-          const { user, token } = await googleAuth(code);
-          if (!user || !token) {
-            throw new Error("Invalid response from Google authentication");
-          }
-          localStorage.setItem("token", token);
+          const { data } = await handleGoogleCallback(code);
           set({
-            user,
+            user: data.user,
             isAuthenticated: true,
             isLoading: false,
           });
@@ -79,11 +67,14 @@ export const useAuthStore = create<AuthStore>()(
 
       logout: async () => {
         try {
-          await logoutApi();
+          await apiClient.post("/api/auth/logout");
+          set({
+            user: null,
+            isAuthenticated: false,
+          });
         } catch (error) {
           console.error("Logout error:", error);
-        } finally {
-          localStorage.removeItem("token");
+          // Still clear state even if API call fails
           set({
             user: null,
             isAuthenticated: false,
