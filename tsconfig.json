@@ -20,7 +20,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["vite/client"]
+    "types": []
   },
   "include": ["src"],
   "exclude": ["node_modules"]
