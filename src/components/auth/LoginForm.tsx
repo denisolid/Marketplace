@@ -1,26 +1,29 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useNavigate, Link } from 'react-router-dom';
-import { Button } from '@/components/ui/Button';
-import { useAuthStore } from '@/stores/authStore';
-import { Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
-import { GoogleAuthButton } from './GoogleAuthButton';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useNavigate, Link } from "react-router-dom";
+import { Button } from "@/components/ui/Button";
+import { useAuthStore } from "@/stores/authStore";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { GoogleAuthButton } from "./GoogleAuthButton";
 
 const loginSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-type LoginFormData = z.infer<typeof loginSchema>;
+type LoginFormData = {
+  email: string;
+  password: string;
+};
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const login = useAuthStore(state => state.login);
-  const isLoading = useAuthStore(state => state.isLoading);
+  const login = useAuthStore((state) => state.login);
+  const isLoading = useAuthStore((state) => state.isLoading);
 
   const {
     register,
@@ -33,9 +36,9 @@ export function LoginForm() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       await login(data);
-      navigate('/');
+      navigate("/");
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to sign in');
+      setError(err.response?.data?.message || "Failed to sign in");
     }
   };
 
@@ -62,11 +65,14 @@ export function LoginForm() {
         )}
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
             Email
           </label>
           <input
-            {...register('email')}
+            {...register("email")}
             type="email"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black"
           />
@@ -76,13 +82,16 @@ export function LoginForm() {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
             Password
           </label>
           <div className="relative">
             <input
-              {...register('password')}
-              type={showPassword ? 'text' : 'password'}
+              {...register("password")}
+              type={showPassword ? "text" : "password"}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black pr-10"
             />
             <button
@@ -98,17 +107,19 @@ export function LoginForm() {
             </button>
           </div>
           {errors.password && (
-            <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+            <p className="mt-1 text-sm text-red-600">
+              {errors.password.message}
+            </p>
           )}
         </div>
 
         <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? 'Signing in...' : 'Sign in'}
+          {isLoading ? "Signing in..." : "Sign in"}
         </Button>
       </form>
 
       <p className="mt-4 text-center text-sm text-gray-600">
-        Don't have an account?{' '}
+        Don't have an account?{" "}
         <Link to="/register" className="text-black hover:underline">
           Create account
         </Link>
