@@ -6,7 +6,7 @@ import "../src/styles.css";
 
 export default function App() {
   return (
-    <Router future={{ v7_startTransition: true }}>
+    <Router>
       <CartProvider>
         <Layout>
           <AppRoutes />
