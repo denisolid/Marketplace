@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { login, register, logout as logoutApi } from "@/lib/api/auth";
+import { login, register } from "@/lib/api/auth";
 import { handleGoogleCallback } from "@/lib/api/google-auth";
 import type {
   AuthState,
@@ -14,6 +14,7 @@ interface AuthStore extends AuthState {
   register: (credentials: RegisterCredentials) => Promise<void>;
   logout: () => Promise<void>;
   handleGoogleAuth: (code: string) => Promise<void>;
+  handleGoogleCallback(code: string): Promise<void>;
 }
 
 export const useAuthStore = create<AuthStore>()(
@@ -63,6 +64,20 @@ export const useAuthStore = create<AuthStore>()(
           set({ isLoading: false });
           throw error;
         }
+      },
+
+      handleGoogleCallback(code: string): Promise<void> {
+        // Implementation of the method
+        return new Promise((resolve, reject) => {
+          // Simulate an API call
+          setTimeout(() => {
+            if (code) {
+              resolve();
+            } else {
+              reject(new Error("Invalid code"));
+            }
+          }, 1000);
+        });
       },
 
       logout: async () => {
